@@ -1,15 +1,15 @@
 # Space Weather News — Build Brief
 
 *For the session that builds this. Read this, skim the source docs, then let's go.*
-*Sibling project: [`web3-sensorium`](../web3-sensorium) — Space Weather News is its first live data instrument.*
+*Standalone macro project — kept separate from the other builds. **No Aura / XR / horn-tori interface, and no Sensorium wiring, at this stage.** The authoritative v0 spec is [`PLAN.md`](PLAN.md); this brief is the why/context.*
 
 ---
 
 ## 1. The vision (in Luke's frame)
 
-An **XR/AI space-weather news + monitoring + early-warning hub**. Watch the Sun and the near-Earth environment in real time; fuse many signals into one picture; surface what actually matters — to power grids, satellites, aviation, comms, and people; and, as a *flagged research frontier*, model whether space-weather and geophysical precursors can give early warning of large (M7+) earthquakes. Delivered as a fast public web experience today and a VR/AI "Aura" experience later.
+An **XR/AI space-weather news + monitoring + early-warning hub**. Watch the Sun and the near-Earth environment in real time; fuse many signals into one picture; surface what actually matters — to power grids, satellites, aviation, comms, and people; and, as a *flagged research frontier*, model whether space-weather and geophysical precursors can give early warning of large (M7+) earthquakes. Delivered as a fast, honest public web experience.
 
-It is one of Luke's long-held pillars (his LinkedIn calls it *"XR/AI Earthquake Prediction Modelling · SpaceWeather News"*). It is also the **first working instrument of the Global Sensorium** — the vertical slice that proves the whole ingest → fuse → reason → present loop.
+It is one of Luke's long-held pillars (his LinkedIn calls it *"XR/AI Earthquake Prediction Modelling · SpaceWeather News"*). It is a **standalone product** — wiring it into the Global Sensorium or the Aura interface is out of scope for now. Keep the macro projects separate.
 
 ## 2. Surface the gem — the honest layering (non-negotiable)
 
@@ -42,7 +42,7 @@ GNSS/TEC, etc.                                                          → feed
 
 - **v0 needs no backend**: the public NOAA SWPC JSON products are fetchable client-side. Ship a static dashboard first (GitHub Pages, `.nojekyll`), like Luke's other repos.
 - Add the **Kafka/InfluxDB streaming + ML** backbone as Phase 2, port the pseudo-code.
-- The **VR/AI "Aura" front-end** (Unity) is Phase 3 — there's a `modular-unity-development-deployment-plan-for-spaceweather-news-hub.md` for it. NOTE: the toroidal "Aura" interface uses **horn tori** — ask Luke for the exact form before building the XR layer.
+- The VR/XR and any "Aura" interface are **deferred — out of scope for now.** Near-term is a clean, fast web UI only. Don't wire in the Aura; keep the macro projects separate.
 
 ## 5. First milestone (proposed)
 
