@@ -1,119 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Weather & Earth Resilience – Early Access</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', Arial, sans-serif;
-      background: linear-gradient(135deg, #0a192f 60%, #1e3a8a 100%);
-      color: #fff;
-    }
-    .hero {
-      background: url('https://placehold.co/1200x400/0a192f/fff?text=Space+Weather+Hero+Image') center/cover no-repeat;
-      padding: 80px 0 60px 0;
-      text-align: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    }
-    .hero h1 {
-      font-size: 2.6rem;
-      color: #64ffda;
-      margin-bottom: 18px;
-      text-shadow: 0 2px 8px #000a;
-    }
-    .hero p {
-      font-size: 1.3rem;
-      color: #bfc9d1;
-      margin-bottom: 0;
-      text-shadow: 0 1px 4px #0008;
-    }
-    .features {
-      max-width: 700px;
-      margin: 40px auto 0 auto;
-      background: #112240cc;
-      border-radius: 12px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
-      padding: 36px 28px;
-      text-align: center;
-    }
-    .features h2 {
-      color: #64ffda;
-      margin-bottom: 16px;
-    }
-    .features ul {
-      list-style: none;
-      padding: 0;
-      color: #bfc9d1;
-      font-size: 1.1rem;
-    }
-    .features ul li {
-      margin: 12px 0;
-      padding-left: 0;
-    }
-    .signup {
-      max-width: 700px;
-      margin: 40px auto;
-      background: #112240cc;
-      border-radius: 12px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
-      padding: 36px 28px;
-      text-align: center;
-    }
-    .signup h2 {
-      color: #64ffda;
-      margin-bottom: 18px;
-    }
-    .footer {
-      margin-top: 40px;
-      text-align: center;
-      color: #8892b0;
-      font-size: 1rem;
-      background: #0a192f;
-      padding: 24px 0;
-    }
-    .footer a {
-      color: #64ffda;
-      text-decoration: none;
-    }
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 1.5rem; }
-      .features, .signup { padding: 18px 6px; }
-    }
-  </style>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Space Weather News — live solar &amp; geomagnetic conditions</title>
+<meta name="description" content="Live solar wind, Kp index, X-ray flares, aurora forecasts and geomagnetic-storm alerts from NOAA SWPC and NASA — a fast, honest, plain-English space-weather dashboard. No backend, refreshes automatically.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
-<body>
-  <div class="hero">
-    <h1>Space Weather & Earth Resilience</h1>
-    <p>
-      Real-time space weather alerts, disaster prediction, and resilience tools for a safer planet.<br>
-      Join our early access and open source community!
-    </p>
+<body data-mode="news">
+<div class="sky"></div><div class="stars"></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="dot"></span><b>Space&nbsp;Weather&nbsp;News</b></a>
+    <div class="nav-mid">
+      <span class="updated-strip">
+        <span id="freshnessDot" class="pulse-dot" aria-hidden="true"></span>
+        <span id="asOf">Loading live data…</span>
+      </span>
+    </div>
+    <div class="mode-toggle" role="group" aria-label="Display mode">
+      <button type="button" class="mode-btn" data-mode="news">News</button>
+      <button type="button" class="mode-btn" data-mode="ops">Ops&nbsp;Console</button>
+    </div>
   </div>
-  <div class="features">
-    <h2>What We Offer</h2>
-    <ul>
-      <li>🌞 Solar storm and geomagnetic activity alerts</li>
-      <li>🌍 Earthquake and disaster prediction dashboards</li>
-      <li>🛰️ Satellite and earth monitoring data</li>
-      <li>🛡️ Resilience and preparedness resources</li>
-      <li>🤝 Open source, global community</li>
-    </ul>
+</header>
+
+<main>
+
+  <!-- CURRENT CONDITIONS -->
+  <section class="pad-sm hero-conditions">
+    <div class="wrap">
+      <span class="kicker">Current conditions</span>
+      <h1 style="margin-top:.6rem">Watch the Sun in real time.</h1>
+      <p class="lead" style="margin-top:.5rem">A plain-English read of space weather right now, sourced live from NOAA SWPC and NASA — no official warnings replaced, just an honest picture.</p>
+      <div class="scale-badges" id="scaleBadges">
+        <div class="state"><span class="spin"></span> Loading current NOAA scales…</div>
+      </div>
+      <div class="outlook-strip ops-only" id="outlookStrip"></div>
+    </div>
+  </section>
+
+  <!-- NEWS TICKER -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <span class="kicker">Latest</span>
+      <h2 style="margin-top:.6rem">Space weather news</h2>
+      <ol class="ticker" id="ticker" aria-live="polite">
+        <li class="state"><span class="spin"></span> Loading alerts…</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- GAUGES -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <span class="kicker">Live numbers</span>
+      <h2 style="margin-top:.6rem">Solar wind &amp; geomagnetic field</h2>
+      <div class="grid g-4" id="gauges">
+        <div class="card"><div class="state"><span class="spin"></span> Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPS IMPACT -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <span class="kicker">Impact</span>
+      <h2 style="margin-top:.6rem">What this means for infrastructure</h2>
+      <div class="grid g-3" id="opsPanel">
+        <div class="card"><div class="state"><span class="spin"></span> Loading…</div></div>
+      </div>
+      <p class="note mt-2"><b>Guidance, not an official warning.</b> This panel is a plain-English read of NOAA's own R/S/G scales — always defer to <a class="link" href="https://www.swpc.noaa.gov" rel="noopener">NOAA SWPC</a> for authoritative alerts and warnings.</p>
+    </div>
+  </section>
+
+  <!-- AURORA + ACTIVE REGIONS -->
+  <section class="pad-sm">
+    <div class="wrap row">
+      <div>
+        <span class="kicker">Aurora</span>
+        <h2 style="margin-top:.6rem">Tonight's aurora oval</h2>
+        <div id="auroraPanel"><div class="state"><span class="spin"></span> Loading…</div></div>
+      </div>
+      <div>
+        <span class="kicker">Sunspots</span>
+        <h2 style="margin-top:.6rem">Active regions</h2>
+        <div id="regionsPanel"><div class="state"><span class="spin"></span> Loading…</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CME -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <span class="kicker">Eruptions</span>
+      <h2 style="margin-top:.6rem">Recent coronal mass ejections <span class="chip warn">Demo data · NASA DONKI · rate-limited</span></h2>
+      <p class="muted mt-1">Uses NASA's public DEMO_KEY, which is shared and rate-limited — if this panel is empty, it may simply mean the shared quota is exhausted, not that there's no activity. A dedicated key is a v1 upgrade.</p>
+      <div class="cme-list" id="cmePanel"><div class="state"><span class="spin"></span> Loading…</div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <div class="sig"><span class="dot" style="width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff8dd,var(--gold) 55%,var(--c-orange) 100%)"></span> Luke <span class="x">×</span> Claude</div>
+      <p class="muted" style="font-size:.9rem;max-width:42ch">A standalone, client-side space-weather dashboard — real NOAA/NASA data, refreshed automatically, no backend, no tracking.</p>
+      <p class="disclaimer mt-2">Space-weather guidance here is informational only and never an official warning. Third-party data (NOAA, NASA) keeps its own terms — see <a class="link" href="LICENCE.md">LICENCE.md</a> §4.</p>
+    </div>
+    <div>
+      <h5>Data sources</h5>
+      <a href="https://www.swpc.noaa.gov" rel="noopener">NOAA Space Weather Prediction Center</a>
+      <a href="https://ccmc.gsfc.nasa.gov/tools/DONKI/" rel="noopener">NASA DONKI (CME catalogue)</a>
+      <a href="README.md">About this project</a>
+      <a href="https://github.com/auraofintelligence/space-weather-news" rel="noopener">Source on GitHub</a>
+    </div>
+    <div>
+      <h5>Project</h5>
+      <a href="PLAN.md">v0 build plan</a>
+      <a href="BUILD_BRIEF.md">Build brief</a>
+      <a href="LICENCE.md">Licence</a>
+    </div>
   </div>
-  <div class="signup">
-    <h2>Sign Up for Early Access</h2>
-    <!-- Replace the src below with your Google Form embed link -->
-    <iframe src="https://docs.google.com/forms/d/e/your-form-id/viewform?embedded=true" width="100%" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  <div class="wrap">
+    <p class="fine">© <span data-year>2026</span> Luke Nathan Hayes / Aura of Intelligence. Released under the <a class="link" href="LICENCE.md">Aura of Intelligence Public Source Licence</a> — read, learn and adapt for non-commercial use; commercial rights reserved.</p>
   </div>
-  <div class="footer">
-    <p>
-      <a href="https://github.com/auraofintelligence/space-weather-news">View on GitHub</a> &nbsp;|&nbsp; &copy; 2025 Space Weather News
-    </p>
-    <p>Building resilience through open science and technology.</p>
-  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
 </body>
 </html>
