@@ -9,6 +9,9 @@ A space-weather monitoring and news hub — real-time solar and near-Earth data,
 ## Status
 ☀️ **v0 live.** A static dashboard runs off real NOAA SWPC / NASA JSON — current-conditions scales, Kp/solar-wind/Bz/X-ray gauges, a plain-language news ticker, an ops-impact panel, aurora + active regions, and a demo CME feed. News/Ops-console toggle. Open `index.html` directly or serve the folder. Background → **[`BUILD_BRIEF.md`](BUILD_BRIEF.md)** · spec → **[`PLAN.md`](PLAN.md)**.
 
+## North star
+Global from the start, its destination is a **VR news studio** — an immersive newsroom with **screens for all the macro data** (solar wind, Kp, flares, CMEs, proton flux, aurora, and more). The v0 dashboard is the data layer that will feed those screens. (This is a macro-data-display project — a different style from the place-twin [Sensorium](../web3-sensorium).)
+
 ## The honest layering (surface the gem)
 - **Real today** → live space-weather monitoring + ops-impact alerting. NOAA SWPC / NASA data is public and live; a gorgeous, honest dashboard is buildable now.
 - **Legitimate research** → multi-source signal fusion (21+ streams) + ML pattern recognition. A reusable sensor-fusion architecture regardless of the headline.

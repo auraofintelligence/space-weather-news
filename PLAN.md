@@ -12,6 +12,9 @@ English, an-open-book design bar (../an-open-book for reference). Commit as you 
 a Co-Authored-By: Claude trailer. Ask me only on the items under "Decisions".
 ```
 
+## North star — a GLOBAL VR news studio
+Space Weather News is **global from the start** (macro / planetary scale). Its destination is a **VR news studio** — an immersive newsroom / mission-control with **screens for all the macro data**: solar wind, Kp, X-ray & flares, CMEs, proton flux, aurora, and other global feeds, each a live screen, broadcast-style. (Corpus: `space-weather-news-hub-vrai`, `vr-space-weather-news`, `modular-unity-development-deployment-plan-for-spaceweather-news-hub`.) This is a **macro-data-display** project — a *different style* from the place-twin Sensorium. The v0 web dashboard below is the **data layer** that will feed the studio's screens.
+
 ## Goal of v0
 A live, gorgeous, **client-side static** web dashboard + plain-language news feed off real public space-weather data. Opens by double-clicking `index.html`; deployable to GitHub Pages unchanged. Honest about hazards — guidance, never official warnings.
 
