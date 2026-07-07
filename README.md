@@ -2,12 +2,12 @@
 
 **Watch the Sun in real time. Read the sky like a newspaper. Warn the grid before it's hit.**
 
-An XR/AI space-weather monitoring, news and early-warning hub — and the first live *instrument* of the [Global Sensorium](../web3-sensorium). Real-time solar and near-Earth data, fused into a fast, beautiful public dashboard and a plain-language news feed, with an ops-impact layer for grids, satellites, aviation and comms — and a clearly-flagged research frontier exploring whether space-weather and geophysical signals can give early warning of large earthquakes.
+A space-weather monitoring and news hub — real-time solar and near-Earth data, fused into a fast, beautiful public dashboard and a plain-language news feed, with an ops-impact layer for grids, satellites, aviation and comms — and (later, clearly flagged) a research frontier exploring whether space-weather and geophysical signals can give early warning of large earthquakes. A standalone product — see [Conventions](#conventions).
 
 > A System Designer project. Luke × Claude. Descriptions have been ahead of the code for years — now we build.
 
 ## Status
-🌱 **Kickoff.** This repo is the build home. Start here → **[`BUILD_BRIEF.md`](BUILD_BRIEF.md)**.
+☀️ **v0 live.** A static dashboard runs off real NOAA SWPC / NASA JSON — current-conditions scales, Kp/solar-wind/Bz/X-ray gauges, a plain-language news ticker, an ops-impact panel, aurora + active regions, and a demo CME feed. News/Ops-console toggle. Open `index.html` directly or serve the folder. Background → **[`BUILD_BRIEF.md`](BUILD_BRIEF.md)** · spec → **[`PLAN.md`](PLAN.md)**.
 
 ## The honest layering (surface the gem)
 - **Real today** → live space-weather monitoring + ops-impact alerting. NOAA SWPC / NASA data is public and live; a gorgeous, honest dashboard is buildable now.
