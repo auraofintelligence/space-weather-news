@@ -1,5 +1,27 @@
 # ☀️ Space Weather News
 
+<!-- github-organisation:start -->
+
+## Project links and history
+
+- First substantive build: 7 August 2025.
+- GitHub repository: [space-weather-news](https://github.com/auraofintelligence/space-weather-news).
+- Public site: [visit the public site](https://auraofintelligence.github.io/space-weather-news/).
+
+## Related public projects
+
+Each link below reflects an evidenced family, lineage or direct connection. This project has 5 relevant public connections.
+
+### Space-weather and cosmic research tools
+
+- [extreme-matter-atlas](https://github.com/auraofintelligence/extreme-matter-atlas) - [public page](https://auraofintelligence.github.io/extreme-matter-atlas/) - shared research architecture.
+- [gods-eye-view](https://github.com/auraofintelligence/gods-eye-view) - [public page](https://www.spatialintelligence.ai/) - shared research architecture.
+- [micronova-and-excursions](https://github.com/auraofintelligence/micronova-and-excursions) - [public page](https://auraofintelligence.github.io/micronova-and-excursions/) - explicit cross-reference, shared research architecture.
+- [strange-but-true-cosmic-nexus](https://github.com/auraofintelligence/strange-but-true-cosmic-nexus) - [public page](https://auraofintelligence.github.io/strange-but-true-cosmic-nexus/) - explicit cross-reference, shared research architecture.
+- [virtual-solar-swarm](https://github.com/auraofintelligence/virtual-solar-swarm) - [public page](https://auraofintelligence.github.io/virtual-solar-swarm/) - explicit cross-reference, shared research architecture.
+
+<!-- github-organisation:end -->
+
 **Watch the Sun in real time. Read the sky like a newspaper. Warn the grid before it's hit.**
 
 A space-weather monitoring and news hub — real-time solar and near-Earth data, fused into a fast, beautiful public dashboard and a plain-language news feed, with an ops-impact layer for grids, satellites, aviation and comms — and (later, clearly flagged) a research frontier exploring whether space-weather and geophysical signals can give early warning of large earthquakes. A standalone product — see [Conventions](#conventions).
