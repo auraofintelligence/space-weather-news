@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build plan · Space Weather News</title>
+<meta name="description" content="The v0 execution spec for Space Weather News: stack, file tree, live NOAA and NASA endpoints, tasks in order, acceptance test, what is out of scope and what comes next.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-raster-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-raster-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-raster-180.png">
+</head>
+<body>
+<div class="sky"></div><div class="stars"></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="dot"></span><b>Space&nbsp;Weather&nbsp;News</b></a>
+    <nav class="nav-links" aria-label="Site">
+      <a href="index.html">Dashboard</a>
+      <a href="brief.html">Build brief</a>
+      <a href="plan.html" aria-current="page">Build plan</a>
+      <a href="licence.html">Licence</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="doc-hero">
+    <div class="wrap">
+      <span class="kicker">v0 build plan</span>
+      <h1 style="margin-top:.6rem">The execution spec.</h1>
+      <p class="lead">The authoritative spec for the v0 coding pass: what to build, in what order, against which live data, and what counts as done. The <a class="link" href="brief.html">build brief</a> is the background.</p>
+      <p class="note mt-2"><b>Standalone macro project.</b> No Aura, XR or horn-tori. No backend. No earthquake claims in v0. No coupling to other repos.</p>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="wrap doc">
+      <aside class="toc" aria-label="On this page">
+        <h5>On this page</h5>
+        <a href="#north-star">North star</a>
+        <a href="#goal">Goal of v0</a>
+        <a href="#stack">Stack</a>
+        <a href="#files">File tree</a>
+        <a href="#endpoints">Live data endpoints</a>
+        <a href="#tasks">Tasks, in order</a>
+        <a href="#acceptance">Acceptance</a>
+        <a href="#not-v0">Not in v0</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#later">Later phases</a>
+        <a href="#run">Run this</a>
+      </aside>
+
+      <article class="prose">
+        <section id="north-star">
+          <h2>North star: a global VR news studio</h2>
+          <p>Space Weather News is <strong>global from the start</strong>, at macro and planetary scale. Its destination is a <strong>VR news studio</strong>: an immersive newsroom and mission control with <strong>screens for all the macro data</strong> (solar wind, Kp, X-rays and flares, CMEs, proton flux, aurora and other global feeds), each a live screen, broadcast style.</p>
+          <p>Corpus: <code>space-weather-news-hub-vrai</code>, <code>vr-space-weather-news</code>, <code>modular-unity-development-deployment-plan-for-spaceweather-news-hub</code>.</p>
+          <p>This is a <strong>macro-data-display</strong> project, a different style from the place-twin Sensorium. The v0 web dashboard is the <strong>data layer</strong> that will feed the studio's screens.</p>
+        </section>
+
+        <section id="goal">
+          <h2>Goal of v0</h2>
+          <p>A live, <strong>client-side static</strong> web dashboard and plain-language news feed off real public space-weather data. It opens by double-clicking <code>index.html</code> and deploys to GitHub Pages unchanged. Honest about hazards: guidance, never official warnings.</p>
+        </section>
+
+        <section id="stack">
+          <h2>Stack</h2>
+          <ul>
+            <li>Vanilla HTML, CSS and JavaScript. No framework, no build step, no dependencies beyond two optional Google Fonts.</li>
+            <li>Fetch NOAA SWPC and NASA JSON directly in the browser.</li>
+            <li>Charts via inline SVG or <code>&lt;canvas&gt;</code>; no chart library needed.</li>
+            <li>Reuse the <a class="link" href="https://github.com/auraofintelligence/an-open-book" rel="noopener">an-open-book</a> design language: deep cosmic ink, violet and gold, Fraunces and Inter, starfield.</li>
+          </ul>
+        </section>
+
+        <section id="files">
+          <h2>File tree</h2>
+<pre><code>space-weather-news/
+  index.html             # live dashboard
+  brief.html             # build brief
+  plan.html              # this plan
+  licence.html           # Public Source Licence
+  assets/styles.css      # adapted from an-open-book
+  assets/data.js         # all fetchers, normalisers and thresholds
+  assets/app.js          # render and refresh loop
+  .nojekyll
+  README.md</code></pre>
+        </section>
+
+        <section id="endpoints">
+          <h2>Live data endpoints</h2>
+          <p>Real and CORS-friendly. Verify each on first fetch.</p>
+          <div class="table-scroll">
+            <table class="endpoints">
+              <thead><tr><th>Feed</th><th>Endpoint</th></tr></thead>
+              <tbody>
+                <tr><td>Solar wind plasma</td><td><code>https://services.swpc.noaa.gov/products/solar-wind/plasma-1-day.json</code></td></tr>
+                <tr><td>Solar wind magnetic field (IMF Bz)</td><td><code>https://services.swpc.noaa.gov/products/solar-wind/mag-1-day.json</code></td></tr>
+                <tr><td>Planetary K index (Kp)</td><td><code>https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json</code></td></tr>
+                <tr><td>GOES X-ray flux</td><td><code>https://services.swpc.noaa.gov/json/goes/primary/xrays-6-hour.json</code></td></tr>
+                <tr><td>Latest X-ray flares</td><td><code>https://services.swpc.noaa.gov/json/goes/primary/xray-flares-latest.json</code></td></tr>
+                <tr><td>Aurora (OVATION)</td><td><code>https://services.swpc.noaa.gov/json/ovation_aurora_latest.json</code></td></tr>
+                <tr><td>Official alerts, watches and warnings</td><td><code>https://services.swpc.noaa.gov/products/alerts.json</code></td></tr>
+                <tr><td>Solar regions</td><td><code>https://services.swpc.noaa.gov/json/solar_regions.json</code></td></tr>
+                <tr><td>NOAA scales (R/S/G now and 3-day)</td><td><code>https://services.swpc.noaa.gov/products/noaa-scales.json</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-2">NASA DONKI CMEs need an API key: defer to v1, or use <code>DEMO_KEY</code> behind a clearly labelled toggle.</p>
+        </section>
+
+        <section id="tasks">
+          <h2>Tasks, in order</h2>
+          <ol>
+            <li><strong>Scaffold</strong> the static site; port the an-open-book tokens, typography and starfield into <code>styles.css</code>. Sticky header, responsive, reduced-motion, accessible.</li>
+            <li><strong><code>data.js</code></strong>: one fetch-and-normalise function per endpoint; graceful error and stale handling; a single <code>refreshAll()</code> on a 90-second interval; timestamps ("as of … UTC").</li>
+            <li><strong>Current conditions header</strong>: the three NOAA scales (R radio blackouts, S solar radiation, G geomagnetic) as live badges from <code>noaa-scales.json</code>, colour-coded, with the plain-English meaning.</li>
+            <li><strong>Gauges and sparklines</strong>: Kp (0 to 9 dial), solar-wind speed and density, IMF Bz (highlight southward, negative values), X-ray flux with flare class (A/B/C/M/X). Vanilla SVG or canvas.</li>
+            <li><strong>News ticker</strong>: turn <code>alerts.json</code> into plain-language headlines, for example "⚠️ G2 (Moderate) geomagnetic storm in progress: high-latitude power grids on watch; aurora possible toward mid-latitudes." Most recent first; no off-site links.</li>
+            <li><strong>Ops-impact panel</strong>: grids, satellites, and aviation and HF comms status derived from Kp, flare class and proton flux thresholds. Every row labelled <strong>"guidance, not an official warning; see NOAA SWPC."</strong></li>
+            <li><strong>Aurora and active regions</strong>: OVATION probability (a simple hemisphere view or a "visible to about X° latitude tonight" line) and a sunspot region list.</li>
+            <li><strong>Polish</strong>: loading, empty and error states; mobile layout; a footer with data-source credits, the licence and the Luke × Claude signature. <code>.nojekyll</code>. Confirm it runs from <code>file://</code> and is Pages-ready.</li>
+          </ol>
+        </section>
+
+        <section id="acceptance">
+          <h2>Acceptance</h2>
+          <p>Double-clicking <code>index.html</code> shows <strong>real, current</strong> space weather that refreshes. The news ticker reads like plain English. Ops-impact carries honest disclaimers. It looks great, throws no console errors, and works on mobile.</p>
+        </section>
+
+        <section id="not-v0">
+          <h2>Explicitly not in v0</h2>
+          <ul>
+            <li>No Aura, horn-tori or XR.</li>
+            <li>No earthquake prediction. That is a later, clearly flagged research module, not now.</li>
+            <li>No backend, and no Kafka, InfluxDB or ML yet. That is v1.</li>
+            <li>Nothing presented as an official warning.</li>
+            <li>No coupling to <code>web3-sensorium</code>.</li>
+          </ul>
+        </section>
+
+        <section id="decisions">
+          <h2>Decisions for Luke</h2>
+          <ul>
+            <li>Public-facing news tone versus technical ops console, or one view with a toggle? Default: one view, plain language first, details expandable.</li>
+            <li>Include the <code>DEMO_KEY</code> NASA DONKI CME feed in v0, or wait for a real key?</li>
+            <li>Domain and branding for the eventual Pages deploy.</li>
+          </ul>
+          <p class="note mt-2"><b>Where v0 landed.</b> The <a class="link" href="index.html">dashboard</a> ships as one view with a News / Ops Console toggle, and includes the DONKI CME feed on the shared <code>DEMO_KEY</code> with a clear "demo data, rate-limited" label. Domain and branding remain open.</p>
+        </section>
+
+        <section id="later">
+          <h2>Later phases</h2>
+          <ul>
+            <li><strong>v1:</strong> streaming and fusion backbone, porting <code>space-weather-hub-pseudo-code.md</code> (Kafka to InfluxDB to signal fusion).</li>
+            <li><strong>v2:</strong> the flagged earthquake research module: backtested, transparent, never a warning.</li>
+          </ul>
+          <p>Conventions throughout: Australian English, <a class="link" href="licence.html">Public Source Licence</a>, signed Luke × Claude.</p>
+        </section>
+
+        <section id="run">
+          <h2>Run this</h2>
+          <p>The v0 coding pass was set up to run as a lower-cost Sonnet session from the repo folder, opened with the prompt below.</p>
+          <details>
+            <summary>The prompt that opened the v0 build session</summary>
+<pre><code>Build Space Weather News v0. Read MEMORY.md (my conventions), then README.md
+and PLAN.md: PLAN.md is the authoritative spec; execute its tasks in order.
+Standalone project: no Aura/XR, no backend, no earthquake claims, no coupling
+to other repos. Static site off live NOAA/NASA JSON, GitHub-Pages-ready,
+Australian English, an-open-book design bar (../an-open-book for reference).
+Commit as you go, signed Luke × Claude with a Co-Authored-By: Claude trailer.
+Ask me only on the items under "Decisions".</code></pre>
+          </details>
+        </section>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <div class="sig"><span class="dot" style="width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff8dd,var(--gold) 55%,var(--c-orange) 100%)"></span> Luke <span class="x">×</span> Claude</div>
+      <p class="muted" style="font-size:.9rem;max-width:42ch">A standalone, client-side space-weather dashboard: real NOAA and NASA data, refreshed automatically, no backend, no tracking.</p>
+      <p class="disclaimer mt-2">Space-weather guidance here is informational only and never an official warning. Third-party data (NOAA, NASA) keeps its own terms; see <a class="link" href="licence.html#third-party">licence section 4</a>.</p>
+    </div>
+    <div>
+      <h5>Data sources</h5>
+      <a href="https://www.swpc.noaa.gov" rel="noopener">NOAA Space Weather Prediction Center</a>
+      <a href="https://ccmc.gsfc.nasa.gov/tools/DONKI/" rel="noopener">NASA DONKI (CME catalogue)</a>
+      <a href="https://github.com/auraofintelligence/space-weather-news" rel="noopener">Source on GitHub</a>
+    </div>
+    <div>
+      <h5>Project</h5>
+      <a href="index.html">Live dashboard</a>
+      <a href="brief.html">Build brief</a>
+      <a href="plan.html">v0 build plan</a>
+      <a href="licence.html">Licence</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">© 2026 Luke Nathan Hayes / Aura of Intelligence. Released under the <a class="link" href="licence.html">Aura of Intelligence Public Source Licence</a>: read, learn and adapt for non-commercial use; commercial rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

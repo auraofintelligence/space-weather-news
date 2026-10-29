@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build brief · Space Weather News</title>
+<meta name="description" content="Why Space Weather News exists: the vision, the honest three-layer framing, the code already in hand, the proposed architecture and the roadmap from live dashboard to VR news studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-raster-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-raster-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-raster-180.png">
+</head>
+<body>
+<div class="sky"></div><div class="stars"></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="dot"></span><b>Space&nbsp;Weather&nbsp;News</b></a>
+    <nav class="nav-links" aria-label="Site">
+      <a href="index.html">Dashboard</a>
+      <a href="brief.html" aria-current="page">Build brief</a>
+      <a href="plan.html">Build plan</a>
+      <a href="licence.html">Licence</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="doc-hero">
+    <div class="wrap">
+      <span class="kicker">Build brief</span>
+      <h1 style="margin-top:.6rem">Why Space Weather News exists.</h1>
+      <p class="lead">The background to the build: the vision, the honest layering, the code already in hand, the proposed architecture and the roadmap. The v0 spec itself lives in the <a class="link" href="plan.html">build plan</a>; this page is the why and the context.</p>
+      <p class="note mt-2"><b>Standalone macro project.</b> Kept separate from the other builds. No Aura, XR or horn-tori interface, and no Sensorium wiring, at this stage.</p>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="wrap doc">
+      <aside class="toc" aria-label="On this page">
+        <h5>On this page</h5>
+        <a href="#vision">1 · The vision</a>
+        <a href="#layering">2 · The honest layering</a>
+        <a href="#code">3 · The code already exists</a>
+        <a href="#architecture">4 · Architecture</a>
+        <a href="#milestone">5 · First milestone</a>
+        <a href="#roadmap">6 · Roadmap</a>
+        <a href="#sources">7 · Source docs</a>
+        <a href="#decisions">8 · Decisions with Luke</a>
+        <a href="#conventions">9 · Conventions</a>
+      </aside>
+
+      <article class="prose">
+        <section id="vision">
+          <h2><span class="num">01</span>The vision, in Luke's frame</h2>
+          <p>An <strong>XR/AI space-weather news, monitoring and early-warning hub</strong>. Watch the Sun and the near-Earth environment in real time; fuse many signals into one picture; surface what actually matters to power grids, satellites, aviation, communications and people; and, as a <em>flagged research frontier</em>, model whether space-weather and geophysical precursors can give early warning of large (M7+) earthquakes. Delivered as a fast, honest public web experience.</p>
+          <p>It is one of Luke's long-held pillars: his LinkedIn calls it <em>"XR/AI Earthquake Prediction Modelling · SpaceWeather News"</em>. It is a <strong>standalone product</strong>. Wiring it into the Global Sensorium or the Aura interface is out of scope for now; the macro projects stay separate.</p>
+        </section>
+
+        <section id="layering">
+          <h2><span class="num">02</span>Surface the gem: the honest layering</h2>
+          <p>Lead with what is real and label the rest truthfully. This part is non-negotiable. Three layers:</p>
+          <div class="grid g-3">
+            <div class="card layer real">
+              <span class="tag">Real today · build first</span>
+              <h3>Monitoring and impact alerts</h3>
+              <p>Real-time space-weather monitoring and operational-impact alerting. NOAA SWPC, NASA (DONKI, SDO), USGS and GNSS data are public and live: solar wind speed and density, IMF Bz, Kp and Ap, X-ray flux, flares, CMEs, aurora ovals, proton flux.</p>
+              <p>The <strong>geomagnetic storm to grid, satellite, aviation and HF-comms impact</strong> layer is operationally real; NOAA SWPC does exactly this. A fast, honest dashboard and news feed is buildable now, no permission required.</p>
+            </div>
+            <div class="card layer research">
+              <span class="tag">Legitimate research</span>
+              <h3>Signal fusion and ML</h3>
+              <p>Multi-source <strong>signal fusion</strong>: the 21-point "IFTTT" architecture from the docs, covering solar wind, IMF, TEC and the ionosphere, ULF electromagnetics, radon, InSAR ground deformation, thermal infrared, acoustic and hydrochemical signals, feeding <strong>ML pattern recognition</strong>.</p>
+              <p>The sensor-fusion and alerting architecture is sound and reusable whatever the headline claim does.</p>
+            </div>
+            <div class="card layer contested">
+              <span class="tag">Contested · flagged</span>
+              <h3>Earthquake early warning</h3>
+              <p>M7+ earthquake early warning from space-weather and geophysical precursors. Built as a clearly labelled <strong>experimental module</strong>: confidence scores, transparent features, rigorous backtesting against historical catalogues, and prominent "research, not a warning" framing.</p>
+              <p>Never presented as fact or as a warning. The <a class="link" href="licence.html#no-harm">licence (section 5)</a> requires this.</p>
+            </div>
+          </div>
+          <blockquote><p>This layering is itself the lesson from Luke's "surface the gem" rule: don't let a contested headline bury a useful, real-today architecture.</p></blockquote>
+        </section>
+
+        <section id="code">
+          <h2><span class="num">03</span>The real code already exists</h2>
+          <p><code>space-weather-hub-pseudo-code.md</code> contains working Python to build from, not just prose:</p>
+          <ul>
+            <li><strong>InfluxDB</strong> <code>write_data</code> and <code>capture_data</code> for time-series ingest;</li>
+            <li>a <strong>Kafka</strong> producer for streaming;</li>
+            <li>a <strong><code>RandomForestClassifier</code></strong> earthquake model plus correlation analysis.</li>
+          </ul>
+          <p>Treat it as the reference implementation. The build can start simpler (client-side) and grow into this streaming and ML backbone.</p>
+        </section>
+
+        <section id="architecture">
+          <h2><span class="num">04</span>Proposed architecture</h2>
+          <p>The starting point, to decide together. Data flows left to right:</p>
+          <div class="flow" role="list">
+            <div class="step" role="listitem"><b>Sources</b><span>NOAA SWPC, NASA DONKI and SDO, USGS quakes, GNSS and TEC, and more</span></div>
+            <div class="step" role="listitem"><b>Ingest</b><span>Poll and fetch</span></div>
+            <div class="step" role="listitem"><b>Stream</b><span>Kafka, or something lighter</span></div>
+            <div class="step" role="listitem"><b>Store</b><span>InfluxDB or a lightweight time-series database</span></div>
+            <div class="step" role="listitem"><b>Fuse + ML</b><span>Signal fusion, RandomForest and onward</span></div>
+            <div class="step" role="listitem"><b>Serve</b><span>REST and WebSocket</span></div>
+            <div class="step now" role="listitem"><b>Experiences</b><span>1. Web dashboard and news (v0)<br>2. Ops-impact alerts<br>3. VR/AI "Aura" news (Unity), later feeding the Global Sensorium</span></div>
+          </div>
+          <ul>
+            <li><strong>v0 needs no backend.</strong> The public NOAA SWPC JSON products can be fetched in the browser. Ship a static dashboard first (GitHub Pages, <code>.nojekyll</code>), like Luke's other repos.</li>
+            <li>Add the <strong>Kafka and InfluxDB streaming plus ML</strong> backbone as Phase 2, porting the pseudo-code.</li>
+            <li>The VR/XR and any "Aura" interface are <strong>deferred, out of scope for now</strong>. Near-term is a clean, fast web UI only.</li>
+          </ul>
+        </section>
+
+        <section id="milestone">
+          <h2><span class="num">05</span>First milestone</h2>
+          <p>A <strong>live, honest web dashboard</strong>, client-side and static-deployable, showing right now:</p>
+          <ul>
+            <li>solar wind (speed, density, Bz), a Kp index gauge, X-ray flux (flare class), proton flux;</li>
+            <li>active regions and the latest flares and CMEs (NASA DONKI), and the aurora forecast oval;</li>
+            <li>a <strong>news ticker</strong> that turns significant events into plain-language headlines, for example "G2 geomagnetic storm underway: high-latitude grids on watch, aurora possible to about 50° latitude";</li>
+            <li>an <strong>ops-impact panel</strong>: grids, satellites, aviation and HF comms status at a glance.</li>
+          </ul>
+          <p>Design bar: Aura house style, cosmic, classy and alive (the <a class="link" href="https://github.com/auraofintelligence/an-open-book" rel="noopener">an-open-book</a> design system is the reference). Australian English. Nothing about hazards overstated.</p>
+          <p>This milestone is what the <a class="link" href="index.html">dashboard</a> runs today.</p>
+        </section>
+
+        <section id="roadmap">
+          <h2><span class="num">06</span>Roadmap</h2>
+          <ol>
+            <li><strong>v0 · Live dashboard and news</strong> (client-side, real NOAA and NASA data).</li>
+            <li><strong>v1 · Streaming and fusion backbone</strong> (Kafka to InfluxDB to signal fusion; port the pseudo-code).</li>
+            <li><strong>v2 · Research module</strong> (ML earthquake backtesting, transparent and flagged; the AUS-IND hackathon framing is in the docs).</li>
+            <li><strong>v3 · VR/AI "Aura" experience</strong> (Unity; horn-tori interface, learning the form first).</li>
+            <li><strong>Sensorium integration</strong>: publish the fused feed as the Global Sensorium's first data domain.</li>
+          </ol>
+        </section>
+
+        <section id="sources">
+          <h2><span class="num">07</span>Source docs</h2>
+          <p>All held locally.</p>
+          <h3>Knowledge base: <code>aura-knowledge-base/themes/space-weather/</code></h3>
+          <ul>
+            <li><code>_OVERVIEW.md</code></li>
+            <li><code>space-weather-news-hub.md</code>, <code>space-weather-news-hub-vrai.md</code>, <code>space-weather-news-hub-catastrophism.md</code></li>
+            <li><code>space-weather-hub-pseudo-code.md</code> (the code)</li>
+            <li><code>space-weather-data-ifttt.md</code> and <code>space-weather-data-use-ifttt.md</code> (signal fusion)</li>
+            <li><code>vr-space-weather-news.md</code>, <code>modular-unity-development-deployment-plan-for-spaceweather-news-hub.md</code>, <code>vrai-aura-development.md</code></li>
+            <li><code>solar-swarm-satellite-research-report.md</code>, <code>earths-disaster-cycle-geomagnetic-events.md</code>, <code>space-weather-earth-interactions.md</code></li>
+            <li><code>research-papers-space-weather-news.md</code>, <code>academia-s-barriers-to-astrophysical-innovation.md</code></li>
+            <li><code>legal-structures-jurisdiction-strategy-for-a-quad-nation-earth-tech-in.md</code></li>
+            <li>the earthquake and hackathon one- and two-pagers</li>
+          </ul>
+          <h3>Raw corpus: <code>Sorting_Files/02_Processed_MD/PDFs_to_Sort/</code></h3>
+          <ul>
+            <li><code>Space_Weather_Hub_Pseudo_Code.md</code></li>
+            <li><code>Space_Weather_Data_IFTTT.md</code></li>
+            <li><code>Research_Papers_-_Space_weather_news.md</code></li>
+            <li><code>1-page_Earthquake_Prediction_with_the_Space_Weather_News.md</code></li>
+          </ul>
+        </section>
+
+        <section id="decisions">
+          <h2><span class="num">08</span>Decisions to make with Luke</h2>
+          <ul>
+            <li><strong>v0 scope:</strong> public news product, internal ops console, or both in one? Proposal: one dashboard, two modes.</li>
+            <li><strong>The horn-tori "Aura" XR interface:</strong> the exact geometry and UX before Phase 3.</li>
+            <li><strong>Earthquake module:</strong> how prominent, and what backtesting bar counts as "worth showing"?</li>
+            <li><strong>Quad-nation legal and jurisdiction strategy</strong> (there is a doc): does it shape v1 hosting and branding?</li>
+            <li><strong>Data:</strong> which NOAA and NASA endpoints for v0, and whether any need a proxy for CORS.</li>
+          </ul>
+        </section>
+
+        <section id="conventions">
+          <h2><span class="num">09</span>Conventions</h2>
+          <ul>
+            <li>Signed Luke × Claude.</li>
+            <li>Australian English.</li>
+            <li><a class="link" href="licence.html">Aura of Intelligence Public Source Licence</a>.</li>
+            <li>Mobilisation, not monetisation.</li>
+            <li>Hazard outputs never overstated.</li>
+            <li>Static-first and GitHub Pages ready, like Luke's other repos.</li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <div class="sig"><span class="dot" style="width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff8dd,var(--gold) 55%,var(--c-orange) 100%)"></span> Luke <span class="x">×</span> Claude</div>
+      <p class="muted" style="font-size:.9rem;max-width:42ch">A standalone, client-side space-weather dashboard: real NOAA and NASA data, refreshed automatically, no backend, no tracking.</p>
+      <p class="disclaimer mt-2">Space-weather guidance here is informational only and never an official warning. Third-party data (NOAA, NASA) keeps its own terms; see <a class="link" href="licence.html#third-party">licence section 4</a>.</p>
+    </div>
+    <div>
+      <h5>Data sources</h5>
+      <a href="https://www.swpc.noaa.gov" rel="noopener">NOAA Space Weather Prediction Center</a>
+      <a href="https://ccmc.gsfc.nasa.gov/tools/DONKI/" rel="noopener">NASA DONKI (CME catalogue)</a>
+      <a href="https://github.com/auraofintelligence/space-weather-news" rel="noopener">Source on GitHub</a>
+    </div>
+    <div>
+      <h5>Project</h5>
+      <a href="index.html">Live dashboard</a>
+      <a href="brief.html">Build brief</a>
+      <a href="plan.html">v0 build plan</a>
+      <a href="licence.html">Licence</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">© 2026 Luke Nathan Hayes / Aura of Intelligence. Released under the <a class="link" href="licence.html">Aura of Intelligence Public Source Licence</a>: read, learn and adapt for non-commercial use; commercial rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

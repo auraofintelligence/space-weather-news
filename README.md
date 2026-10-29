@@ -29,7 +29,7 @@ A space-weather monitoring and news hub — real-time solar and near-Earth data,
 > A System Designer project. Luke × Claude. Descriptions have been ahead of the code for years — now we build.
 
 ## Status
-☀️ **v0 live.** A static dashboard runs off real NOAA SWPC / NASA JSON — current-conditions scales, Kp/solar-wind/Bz/X-ray gauges, a plain-language news ticker, an ops-impact panel, aurora + active regions, and a demo CME feed. News/Ops-console toggle. Open `index.html` directly or serve the folder. Background → **[`BUILD_BRIEF.md`](BUILD_BRIEF.md)** · spec → **[`PLAN.md`](PLAN.md)**.
+☀️ **v0 live.** A static dashboard runs off real NOAA SWPC / NASA JSON — current-conditions scales, Kp/solar-wind/Bz/X-ray gauges, a plain-language news ticker, an ops-impact panel, aurora + active regions, and a demo CME feed. News/Ops-console toggle. Open `index.html` directly or serve the folder. Background → **[build brief](https://auraofintelligence.github.io/space-weather-news/brief.html)** · spec → **[v0 build plan](https://auraofintelligence.github.io/space-weather-news/plan.html)** (source: `brief.html`, `plan.html`).
 
 ## North star
 Global from the start, its destination is a **VR news studio** — an immersive newsroom with **screens for all the macro data** (solar wind, Kp, flares, CMEs, proton flux, aurora, and more). The v0 dashboard is the data layer that will feed those screens. (This is a macro-data-display project — a different style from the place-twin [Sensorium](../web3-sensorium).)
@@ -43,4 +43,4 @@ Global from the start, its destination is a **VR news studio** — an immersive 
 A live web dashboard pulling real NOAA SWPC feeds — solar wind, Kp index, X-ray flux, aurora, active regions, CME alerts — with a significant-events news ticker and an ops-impact panel. Client-side, deployable to GitHub Pages, no backend for v0. Then the fusion / ML / VR-Aura phases.
 
 ## Conventions
-Australian English · [Aura of Intelligence Public Source Licence](LICENCE.md) (non-commercial free; commercial reserved) · mobilisation not monetisation · nothing about hazards overstated · signed **Luke × Claude**.
+Australian English · [Aura of Intelligence Public Source Licence](https://auraofintelligence.github.io/space-weather-news/licence.html) (non-commercial free; commercial reserved; source in `licence.html`) · mobilisation not monetisation · nothing about hazards overstated · signed **Luke × Claude**.
